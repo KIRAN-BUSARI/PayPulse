@@ -10,6 +10,6 @@ app.use(express.json());
 
 app.use(morgan("dev"))
 
-app.use("/api/v1", rootRoutes)
+app.use("/api/v1/user", rootRoutes)
 
 export default app;
