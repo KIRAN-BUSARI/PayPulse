@@ -1,6 +1,6 @@
 import app from "./app.js";
 import { connectDB } from "./db/connectDB.js";
-const PORT = 8000;
+const PORT = 8001;
 
 app.get("/", (req, res) => {
     res.json("Hello World!");
