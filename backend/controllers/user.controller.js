@@ -132,8 +132,40 @@ const updateDetails = async (req, res) => {
     });
 }
 
+const getUserDetails = async (req, res) => {
+    const filter = req.query.filter || ""
+
+    const userDetails = await User.find({
+        $or: [{
+            firstName: {
+                "$regex": filter,
+                "$options": 'i'
+            }
+        }, {
+            lastName: {
+                "$regex": filter,
+                "$options": 'i'
+            }
+        }]
+    })
+
+    res.status(200).json({
+        success: true,
+        message: "Fetched user details",
+        user: userDetails.map((data) => ({
+            email: data.email,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            id: data._id
+        }))
+    })
+    console.log("User Details:", userDetails);
+
+}
+
 export {
     signup,
     signin,
     updateDetails,
+    getUserDetails
 }
