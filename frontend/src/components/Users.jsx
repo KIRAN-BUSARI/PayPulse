@@ -12,6 +12,7 @@ export const Users = () => {
     useEffect(() => {
         axios.get("http://localhost:8001/api/v1/user/getDetails?filter=" + filter)
             .then(response => {
+                console.log(response.data.user);
                 setUsers(response.data.user)
             })
     }, [filter])
@@ -50,7 +51,7 @@ function User({ user }) {
 
         <div className="flex flex-col justify-center h-ful">
             <Button onClick={(e) => {
-                navigate("/send?id=" + user._id + "&name=" + user.firstName);
+                navigate("/sendmoney?id=" + user._id + "&name=" + user.firstName);
             }} label={"Send Money"} />
         </div>
     </div>

@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import { User } from '../models/user.models.js'
 import { JWT_SECRET } from '../config.js'
 import { config } from 'dotenv';
+import { Account } from '../models/account.models.js';
 config();
 
 const signup = async (req, res) => {
@@ -40,9 +41,14 @@ const signup = async (req, res) => {
     if (!user) {
         return res.status(500).send("Server Error")
     }
-    user.save();
+    // user.save();
 
     const userId = user._id
+
+    await Account.create({
+        userId,
+        balance: 1 + Math.random() * 10000
+    });
 
     const token = jwt.sign({
         userId
@@ -51,6 +57,7 @@ const signup = async (req, res) => {
 
     return res.status(200).json({
         success: true,
+        user,
         message: "User created successfully",
         token: token
     })

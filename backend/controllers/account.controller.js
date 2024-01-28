@@ -6,9 +6,17 @@ const getBalance = async (req, res) => {
         userId: req.userId
     })
 
+    const balance = account.balance;
+    if (balance === null) {
+        res.status(400).json({
+            success: false,
+            message: "Insufficient balance"
+        })
+    }
+
     res.status(200).json({
         success: true,
-        balance: account.balance
+        balance: account
     })
 }
 
