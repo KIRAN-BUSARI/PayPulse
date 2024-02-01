@@ -2,21 +2,15 @@ import { Account } from "../models/account.models.js"
 import mongoose from 'mongoose'
 
 const getBalance = async (req, res) => {
+    // const { userId } = req.body;
+    // console.log(req.userId);
     const account = await Account.findOne({
         userId: req.userId
     })
 
-    const balance = account.balance;
-    if (balance === null) {
-        res.status(400).json({
-            success: false,
-            message: "Insufficient balance"
-        })
-    }
-
     res.status(200).json({
         success: true,
-        balance: account
+        account: account
     })
 }
 
@@ -27,6 +21,7 @@ const transfer = async (req, res) => {
     session.startTransaction()
     const { amount, to } = req.body
 
+    // console.log(req.userId);
     const fromAccount = await Account.findOne({
         userId: req.userId
     }).session(session);
@@ -70,7 +65,11 @@ const transfer = async (req, res) => {
 
     await session.commitTransaction();
     res.json({
-        message: "Transfer successful"
+        success: true,
+        message: "Transfer successful",
+        amount: amount,
+        balance: fromAccount.balance,
+        toBalance: toAccount.balance
     });
 }
 

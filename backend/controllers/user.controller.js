@@ -163,7 +163,7 @@ const getUserDetails = async (req, res) => {
             email: data.email,
             firstName: data.firstName,
             lastName: data.lastName,
-            id: data._id
+            _id: data._id
         }))
     })
     console.log("User Details:", userDetails);
