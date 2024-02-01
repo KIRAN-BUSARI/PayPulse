@@ -12,7 +12,7 @@ export const Users = () => {
     useEffect(() => {
         axios.get("http://localhost:8001/api/v1/user/getDetails?filter=" + filter)
             .then(response => {
-                console.log(response.data.user);
+                // console.log(response.data.user);
                 setUsers(response.data.user)
             })
     }, [filter])
