@@ -170,9 +170,20 @@ const getUserDetails = async (req, res) => {
 
 }
 
+const currentUser = async (req, res) => {
+
+    const user = await User.findById(req.userId)
+    res.status(200).json({
+        success: true,
+        message: "Fetched user details",
+        user
+    })
+}
+
 export {
     signup,
     signin,
     updateDetails,
-    getUserDetails
+    getUserDetails,
+    currentUser
 }
