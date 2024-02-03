@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { Button } from "./Button"
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import axiosInstance from "../axiosInstance";
 
 export const Users = () => {
     // Replace with backend call
@@ -10,10 +9,10 @@ export const Users = () => {
     const [filter, setFilter] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:8001/api/v1/user/getDetails?filter=" + filter)
-            .then(response => {
-                // console.log(response.data.user);
-                setUsers(response.data.user)
+        axiosInstance.get("/user/getDetails?filter=" + filter)
+            .then(res => {
+                // console.log(res.data.user);
+                setUsers(res.data.user)
             })
     }, [filter])
 
