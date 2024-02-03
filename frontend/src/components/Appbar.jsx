@@ -1,17 +1,28 @@
-
+import { useEffect, useState } from "react"
+import axiosInstance from "../axiosInstance.js"
 export const Appbar = () => {
+    const [username, setUsername] = useState("")
+    useEffect(() => {
+        axiosInstance.get("/user/currentUser", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
+        })
+            .then(res => {
+                // console.log(res.data.user.firstName);
+                setUsername(res.data.user.firstName)
+            })
+    })
     return <div className="shadow h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4">
+        <div className="flex flex-col justify-center h-full ml-4 text-[#0095ff]">
             PayTM App
         </div>
         <div className="flex">
-            <div className="flex flex-col justify-center h-full mr-4">
+            <div className="flex flex-col justify-center h-full mr-3">
                 Hello
             </div>
-            <div className="rounded-full h-12 w-12 bg-slate-200 flex justify-center mt-1 mr-2">
-                <div className="flex flex-col justify-center h-full text-xl">
-                    U
-                </div>
+            <div className="mr-3 uppercase underline flex items-center text-[#0095ff]">
+                {username}
             </div>
         </div>
     </div>
