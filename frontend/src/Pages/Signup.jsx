@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { toast } from "react-hot-toast"
 import { BottomWarning } from "../components/BottomWarning"
 import { Button } from "../components/Button"
 import { Heading } from "../components/Heading"
@@ -40,12 +41,18 @@ export const Signup = () => {
             //   email,
             //   password
             // });
-            const response = await axiosInstance.post("/user/signup", {
+            let response = axiosInstance.post("/user/signup", {
               email,
               firstName,
               lastName,
               password
-            });
+            })
+            await toast.promise(response, {
+              loading: "Creating the user.....",
+              success: "User Signup successfully..!🥳",
+              error: "Error creating user..."
+            })
+            response = await response
             localStorage.setItem("token", response.data.token)
             navigate("/dashboard")
           }} label={"Sign up"} />

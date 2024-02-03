@@ -1,4 +1,5 @@
 import axios from "axios"
+import { toast } from "react-hot-toast"
 import { BottomWarning } from "../components/BottomWarning"
 import { Button } from "../components/Button"
 import { Heading } from "../components/Heading"
@@ -26,10 +27,17 @@ export const Signin = () => {
                             //     email,
                             //     password
                             // });
-                            const res = await axiosInstance.post("/user/signin", {
+                            let res = axiosInstance.post("/user/signin", {
                                 email,
                                 password
                             })
+
+                            await toast.promise(res, {
+                                loading: "Signing in.....",
+                                success: "Signed in successfully..!🥳",
+                                error: "Error signing in..."
+                            })
+                            res = await res
                             localStorage.setItem("token", res.data.token)
                             navigate("/dashboard")
                         }} label={"Sign in"} />
