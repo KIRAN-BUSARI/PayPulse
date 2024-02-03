@@ -10,8 +10,10 @@ const getBalance = async (req, res) => {
 
     res.status(200).json({
         success: true,
-        account: account
+        message: "Account Fetched successfully",
+        balance: account.balance
     })
+    // console.log("Account ", account);
 }
 
 
