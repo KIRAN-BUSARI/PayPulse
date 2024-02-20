@@ -6,7 +6,7 @@ app.get("/", (req, res) => {
     res.json("Hello World!");
 });
 
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log(`Server is listening on port ${process.env.PORT}`);
     connectDB();
 });

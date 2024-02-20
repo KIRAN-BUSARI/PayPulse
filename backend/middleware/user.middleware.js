@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
-import { JWT_SECRET } from "../config.js";
 config()
 
 const authMiddleware = (req, res, next) => {
@@ -16,7 +15,7 @@ const authMiddleware = (req, res, next) => {
     const token = authHeader.split(' ')[1];
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if (decoded.userId) {
             req.userId = decoded.userId;
             next();

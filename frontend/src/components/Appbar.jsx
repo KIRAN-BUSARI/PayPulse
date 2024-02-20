@@ -10,7 +10,7 @@ export const Appbar = () => {
         })
             .then(res => {
                 // console.log(res.data.user.firstName);
-                setUsername(res.data.user.firstName)
+                setUsername(res.data.user.firstName + " " + res.data.user.lastName)
             })
     })
     return <div className="shadow h-14 flex justify-between">
