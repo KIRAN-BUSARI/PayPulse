@@ -14,14 +14,14 @@ export const Appbar = () => {
             })
     })
     return <div className="shadow h-14 flex justify-between">
-        <div className="flex flex-col justify-center h-full ml-4 text-[#0095ff]">
+        <div className="flex flex-col justify-center h-full ml-4 text-[#0095ff] cursor-pointer">
             PayPulse App
         </div>
         <div className="flex">
             <div className="flex flex-col justify-center h-full mr-3">
                 Hello
             </div>
-            <div className="mr-3 uppercase underline flex items-center text-[#0095ff]">
+            <div className="mr-3 uppercase underline flex items-center cursor-pointer text-[#0095ff]">
                 {username}
             </div>
         </div>
