@@ -4,6 +4,11 @@ import userRoutes from "./routes/user.routes.js";
 import accountRoutes from "./routes/account.routes.js";
 import cors from "cors";
 
+import { config } from "dotenv";
+config({
+    path: ".env"
+})
+
 const app = express();
 
 app.use(cors({

@@ -1,10 +1,7 @@
 import zod from 'zod'
 import jwt from 'jsonwebtoken'
 import { User } from '../models/user.models.js'
-import { JWT_SECRET } from '../config.js'
-import { config } from 'dotenv';
 import { Account } from '../models/account.models.js';
-config();
 
 const signup = async (req, res) => {
 
@@ -16,7 +13,7 @@ const signup = async (req, res) => {
     });
 
     const { email, password, firstName, lastName } = req.body;
-
+    console.log(email, password, firstName, lastName);
     const signupValidation = signupSchema.safeParse(req.body)
 
     if (!signupValidation.success) {
@@ -38,6 +35,7 @@ const signup = async (req, res) => {
         lastName
     })
 
+    console.log(user);
     if (!user) {
         return res.status(500).send("Server Error")
     }
@@ -52,9 +50,9 @@ const signup = async (req, res) => {
 
     const token = jwt.sign({
         userId
-    }, JWT_SECRET)
+    }, process.env.JWT_SECRET)
 
-
+    console.log(token);
     return res.status(200).json({
         success: true,
         user,
@@ -94,7 +92,7 @@ const signin = async (req, res) => {
 
     const token = jwt.sign({
         userId: userExists._id
-    }, JWT_SECRET)
+    }, process.env.JWT_SECRET)
 
     userExists.save();
 
